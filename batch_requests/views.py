@@ -44,7 +44,7 @@ def get_response(wsgi_request):
         d_resp.update({"body": resp.content.decode('utf-8')})
     except ContentNotRenderedError:
         resp.render()
-        d_resp.update({"body": resp.content})
+        d_resp.update({"body": resp.content.decode('utf-8')})
 
     # Check if we need to send across the duration header.
     if _settings.ADD_DURATION_HEADER:

@@ -22,11 +22,11 @@ class TestCompatibility(TestBase):
         '''
         # Get the response for an individual request.
         inv_req = self.client.get("/views/")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("GET", "/views/", "")
-        batch_resp = json.loads(batch_request.content)[0]
+        batch_resp = json.loads(batch_request.content.decode('utf-8'))[0]
         del batch_resp["reason_phrase"]
 
         # Assert both individual request response and batch response are equal.
@@ -41,11 +41,11 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("POST", "/views/", data, {"content_type": "text/plain"})
-        batch_resp = json.loads(batch_request.content)[0]
+        batch_resp = json.loads(batch_request.content.decode('utf-8'))[0]
         del batch_resp["reason_phrase"]
 
         # Assert both individual request response and batch response are equal.
@@ -60,11 +60,11 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.patch("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("patch", "/views/", data, {"content_type": "text/plain"})
-        batch_resp = json.loads(batch_request.content)[0]
+        batch_resp = json.loads(batch_request.content.decode('utf-8'))[0]
         del batch_resp["reason_phrase"]
 
         # Assert both individual request response and batch response are equal.
@@ -79,11 +79,11 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("POST", "/views/", data, {"CONTENT_TYPE": "text/plain"})
-        batch_resp = json.loads(batch_request.content)[0]
+        batch_resp = json.loads(batch_request.content.decode('utf-8'))[0]
         del batch_resp["reason_phrase"]
 
         # Assert both individual request response and batch response are equal.
@@ -96,11 +96,11 @@ class TestCompatibility(TestBase):
         '''
         # Get the response for an individual request.
         inv_req = self.client.delete("/views/")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("delete", "/views/", "")
-        batch_resp = json.loads(batch_request.content)[0]
+        batch_resp = json.loads(batch_request.content.decode('utf-8'))[0]
         del batch_resp["reason_phrase"]
 
         # Assert both individual request response and batch response are equal.
@@ -117,15 +117,15 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual GET request.
         inv_req = self.client.get("/views/")
-        inv_get = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_get = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for an individual POST request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_post = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_post = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Get the response for an individual PUT request.
         inv_req = self.client.patch("/views/", data, content_type="text/plain")
-        inv_put = self.prepare_response(inv_req.status_code, inv_req.content, inv_req._headers)
+        inv_put = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
 
         # Consolidate all the responses.
         indv_responses = [inv_get, inv_post, inv_put]
@@ -137,7 +137,7 @@ class TestCompatibility(TestBase):
 
         # Get the response for a batch request.
         batch_requests = self.make_multiple_batch_request([get_req, post_req, put_req])
-        batch_responses = json.loads(batch_requests.content)
+        batch_responses = json.loads(batch_requests.content.decode('utf-8'))
 
         # Assert all the responses are compatible.
         for indv_resp, batch_resp in zip(indv_responses, batch_responses):

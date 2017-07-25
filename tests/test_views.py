@@ -35,7 +35,7 @@ class SimpleView(View):
         '''
         # Imaginary current view of data.
         data = {"method": "PUT", "status": 202, "text": "Updated"}
-        data.update(json.loads(request.body))
+        data.update(json.loads(request.body.decode('utf-8')))
         return HttpResponse(status=202, content=json.dumps(data))
 
     def patch(self, request):
@@ -44,7 +44,7 @@ class SimpleView(View):
         '''
         # Imaginary current view of data.
         data = {"method": "PUT", "status": 202, "text": "Updated"}
-        data.update(json.loads(request.body))
+        data.update(json.loads(request.body.decode('utf-8')))
         return HttpResponse(status=202, content=json.dumps(data))
 
     def delete(self, request):

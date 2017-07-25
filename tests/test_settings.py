@@ -33,7 +33,7 @@ class TestSettings(TestCase):
 
         # Assert we get a bad request.
         self.assertEqual(batch_requests.status_code, 400, "MAX_LIMIT setting not working.")
-        self.assertTrue(batch_requests.content.lower().startswith("you can batch maximum of"))
+        self.assertTrue(batch_requests.content.lower().decode('utf-8').startswith("you can batch maximum of"))
 
     def test_custom_header(self):
         '''
@@ -45,7 +45,7 @@ class TestSettings(TestCase):
 
         # Make a batch request querying for that particular header.
         batch_req = self._make_a_batch_request("get", "/echo/?header=HTTP_%s" % (header), "", headers={header: value})
-        batch_resp = json.loads(batch_req.content)[0]
+        batch_resp = json.loads(batch_req.content.decode('utf-8'))[0]
 
         self.assertEqual(batch_resp['body'], value, "Custom header not working")
 
@@ -59,7 +59,7 @@ class TestSettings(TestCase):
 
         # Make a batch request querying for that particular header.
         batch_req = self._make_a_batch_request("get", "/echo/?header=%s" % (header), "", headers={})
-        batch_resp = json.loads(batch_req.content)[0]
+        batch_resp = json.loads(batch_req.content.decode('utf-8'))[0]
 
         self.assertEqual(batch_resp['body'], value, "Custom header not working")
 
@@ -75,7 +75,7 @@ class TestSettings(TestCase):
 
         # Make a batch request querying for that particular header.
         batch_req = self._make_a_batch_request("post", "/echo/?header=%s" % (header), data, headers={})
-        batch_resp = json.loads(batch_req.content)[0]
+        batch_resp = json.loads(batch_req.content.decode('utf-8'))[0]
 
         self.assertEqual(batch_resp['body'], value, "Default content type not working.")
 
@@ -93,7 +93,7 @@ class TestSettings(TestCase):
         self.assertIn(br_settings.DURATION_HEADER_NAME, batch_requests._headers,
                       "Enclosing batch request does not contain duration header.")
 
-        self.assertIn(br_settings.DURATION_HEADER_NAME, json.loads(batch_requests.content)[0]['headers'],
+        self.assertIn(br_settings.DURATION_HEADER_NAME, json.loads(batch_requests.content.decode('utf-8'))[0]['headers'],
                       "Individual batch request does not contain duration header.")
 
     def _batch_request(self, method, path, data, headers={}):

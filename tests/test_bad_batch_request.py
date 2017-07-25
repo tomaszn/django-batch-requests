@@ -29,7 +29,7 @@ class TestBadBatchRequest(TestCase):
                                 content_type="application/json")
 
         self.assertEqual(resp.status_code, 400, "Method validation is broken!")
-        self.assertEqual(resp.content.lower(), "invalid request method.", "Method validation is broken!")
+        self.assertEqual(resp.content.lower().decode('utf-8'), "invalid request method.", "Method validation is broken!")
 
     def test_missing_http_method(self):
         '''
@@ -38,7 +38,7 @@ class TestBadBatchRequest(TestCase):
         resp = self.client.post("/api/v1/batch/", json.dumps([{"body": "/views"}]), content_type="application/json")
 
         self.assertEqual(resp.status_code, 400, "Method & URL validation is broken!")
-        self.assertEqual(resp.content.lower(), "request definition should have url, method defined.",
+        self.assertEqual(resp.content.lower().decode('utf-8'), "request definition should have url, method defined.",
                          "Method validation is broken!")
 
     def test_missing_url(self):
@@ -48,7 +48,7 @@ class TestBadBatchRequest(TestCase):
         resp = self.client.post("/api/v1/batch/", json.dumps([{"method": "get"}]), content_type="application/json")
 
         self.assertEqual(resp.status_code, 400, "Method & URL validation is broken!")
-        self.assertEqual(resp.content.lower(), "request definition should have url, method defined.",
+        self.assertEqual(resp.content.lower().decode('utf-8'), "request definition should have url, method defined.",
                          "Method validation is broken!")
 
     def test_invalid_batch_request(self):
@@ -58,9 +58,9 @@ class TestBadBatchRequest(TestCase):
         resp = self.client.post("/api/v1/batch/", json.dumps({"method": "get", "url": "/views/"}),
                                 content_type="application/json")
 
-        print resp.content
+        print(resp.content)
         self.assertEqual(resp.status_code, 400, "Batch requests should always be in list.")
-        self.assertEqual(resp.content.lower(), "the body of batch request should always be list!",
+        self.assertEqual(resp.content.lower().decode('utf-8'), "the body of batch request should always be list!",
                          "List validation is broken!")
 
     def test_view_that_raises_exception(self):
@@ -70,6 +70,6 @@ class TestBadBatchRequest(TestCase):
         resp = self.client.post("/api/v1/batch/", json.dumps([{"method": "get", "url": "/exception/"}]),
                                 content_type="application/json")
 
-        resp = json.loads(resp.content)[0]
+        resp = json.loads(resp.content.decode('utf-8'))[0]
         self.assertEqual(resp['status_code'], 500, "Exceptions should return 500.")
         self.assertEqual(resp['body'].lower(), "exception", "Exception handling is broken!")

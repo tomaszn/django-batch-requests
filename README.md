@@ -11,8 +11,8 @@ Its built on top of Django and relies on Django's URL dispatching, hence it coul
 
 # Requirements
 
-* Python (2.7)
-* Django (1.7)
+* Python (3.4)
+* Django (1.9)
 
 # Installation
 

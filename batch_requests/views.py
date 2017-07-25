@@ -34,14 +34,14 @@ def get_response(wsgi_request):
     try:
         resp = view(*args, **kwargs)
     except Exception as exc:
-        resp = HttpResponseServerError(content=exc.message)
+        resp = HttpResponseServerError(content=exc.args[0])
 
     headers = dict(resp._headers.values())
     # Convert HTTP response into simple dict type.
     d_resp = {"status_code": resp.status_code, "reason_phrase": resp.reason_phrase,
               "headers": headers}
     try:
-        d_resp.update({"body": resp.content})
+        d_resp.update({"body": resp.content.decode('utf-8')})
     except ContentNotRenderedError:
         resp.render()
         d_resp.update({"body": resp.content})
@@ -59,7 +59,7 @@ def get_wsgi_requests(request):
         WSGIRequest object for each.
     '''
     valid_http_methods = ["get", "post", "put", "patch", "delete", "head", "options", "connect", "trace"]
-    requests = json.loads(request.body)
+    requests = json.loads(request.body.decode('utf-8'))
 
     if type(requests) not in (list, tuple):
         raise BadBatchRequest("The body of batch request should always be list!")
@@ -114,7 +114,7 @@ def handle_batch_requests(request, *args, **kwargs):
         # Get the Individual WSGI requests.
         wsgi_requests = get_wsgi_requests(request)
     except BadBatchRequest as brx:
-        return HttpResponseBadRequest(content=brx.message)
+        return HttpResponseBadRequest(content=brx.args[0])
 
     # Fire these WSGI requests, and collect the response for the same.
     response = execute_requests(wsgi_requests)

@@ -45,8 +45,8 @@ class TestBaseConcurrency(TestBase):
         br_settings.executor = self.get_executor()
         threaded_batch_requests = self.make_multiple_batch_request([get_req, post_req, put_req])
 
-        seq_responses = json.loads(batch_requests.content)
-        conc_responses = json.loads(threaded_batch_requests.content)
+        seq_responses = json.loads(batch_requests.content.decode('utf-8'))
+        conc_responses = json.loads(threaded_batch_requests.content.decode('utf-8'))
 
         for idx, seq_resp in enumerate(seq_responses):
             self.assertDictEqual(seq_resp, conc_responses[idx], "Sequential and concurrent response not same!")

@@ -31,9 +31,9 @@ version = batch_requests.__version__
 package = 'batch_requests'
 description = 'Create batch APIs for Django.'
 long_description = 'Django batch requests allow developers to combine multiple http requests into a single batch request. This is essentially useful to avoid making multiple http requests to save on round trip network latency.'
-url = 'https://github.com/tanwanirahul/django-batch-requests'
-author = 'Rahul Tanwani'
-author_email = 'tanwanirahul@gmail.com'
+url = 'https://github.com/tomaszn/django-batch-requests'
+author = 'Rahul Tanwani, Tomasz Nowak'
+author_email = 'tanwanirahul@gmail.com, tomaszn@users.noreply.github.com'
 license = 'MIT'
 install_requires = []
 
@@ -92,7 +92,8 @@ setup(
     packages=get_packages(package),
     package_data=get_package_data(package),
     install_requires=install_requires,
-    cmdclass = {'test': PyTest},
+    tests_require=['py>1.7', 'pytest>4', 'pytest-django', 'pytest-cov==1.8.1'],
+    cmdclass={'test': PyTest},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -103,6 +104,8 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
         'Topic :: Internet :: WWW/HTTP'
     ]
 )

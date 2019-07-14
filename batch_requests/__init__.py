@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 __title__ = 'django-batch-requests'
-__version__ = '0.1.1'
-__author__ = 'Rahul Tanwani'
+__version__ = '1.0'
+__author__ = 'Rahul Tanwani, Tomasz Nowak'
 __license__ = 'MIT'
 
 # Version synonym

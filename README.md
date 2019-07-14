@@ -1,6 +1,8 @@
 Django Batch Requests
 =========================
 
+![](https://img.shields.io/badge/python-2.7%20|%203.4%20|%20nightly-blue.svg)
+![](https://img.shields.io/badge/django%20versions-1.11%20|%202.0%20|%202.2-blue.svg)
 [![build-status-image]][travis]
 [![coverage]][coverage-repo]
 
@@ -8,16 +10,11 @@ Django batch requests allow developers to combine multiple http requests into a 
 
 Its built on top of Django and relies on Django's URL dispatching, hence it could also be used with any web framework built on top of Django such as [Django Rest Framework].
 
-# Requirements
-
-* Python (3.4)
-* Django (1.11)
-
 # Installation
 
 Install using `pip`...
 
-    pip install django-batch-requests
+    pip install git+https://github.com/tomaszn/django-batch-requests
 
 Install from source...
 
@@ -218,8 +215,8 @@ There are two widely used approached to achieve concurrency. One through launchi
 ```
 
 `CONCURRENT_EXECUTOR` value must be one of the following two:
-1. batch_requests.concurrent.executor.ThreadBasedExecutor
-2. batch_requests.concurrent.executor.ProcessBasedExecutor
+1. `batch_requests.concurrent.executor.ThreadBasedExecutor`
+2. `batch_requests.concurrent.executor.ProcessBasedExecutor`
 
 to achive thread and process based concurrency respectively. `NUM_WORKERS` determines how may threads / processes to pool to execute the requests. Configure this number wisely based on the hardware resources you have. By default, if you turn ON the parallelism, `ThreadBasedExecutor` with `number_of_cpu * 4` workers is configured on the pool.
 

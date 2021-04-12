@@ -62,11 +62,11 @@ class TestBaseConcurrency(TestBase):
 
         # Get the response for a batch request.
         batch_requests = self.make_multiple_batch_request([sleep_2_seconds, sleep_1_second, sleep_2_seconds])
-        seq_duration = int(batch_requests._headers.get(br_settings.DURATION_HEADER_NAME)[1])
+        seq_duration = int(batch_requests[br_settings.DURATION_HEADER_NAME])
 
         # Update the executor settings.
         br_settings.executor = self.get_executor()
         concurrent_batch_requests = self.make_multiple_batch_request([sleep_2_seconds, sleep_1_second, sleep_2_seconds])
-        concurrency_duration = int(concurrent_batch_requests._headers.get(br_settings.DURATION_HEADER_NAME)[1])
+        concurrency_duration = int(concurrent_batch_requests[br_settings.DURATION_HEADER_NAME])
 
         self.assertLess(concurrency_duration, seq_duration, "Concurrent requests are slower than running them in sequence.")

@@ -22,7 +22,7 @@ class TestCompatibility(TestBase):
         '''
         # Get the response for an individual request.
         inv_req = self.client.get("/views/")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("GET", "/views/", "")
@@ -41,7 +41,7 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("POST", "/views/", data, {"content_type": "text/plain"})
@@ -60,7 +60,7 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.patch("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("patch", "/views/", data, {"content_type": "text/plain"})
@@ -79,7 +79,7 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("POST", "/views/", data, {"CONTENT_TYPE": "text/plain"})
@@ -96,7 +96,7 @@ class TestCompatibility(TestBase):
         '''
         # Get the response for an individual request.
         inv_req = self.client.delete("/views/")
-        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_resp = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for a batch request.
         batch_request = self.make_a_batch_request("delete", "/views/", "")
@@ -117,15 +117,15 @@ class TestCompatibility(TestBase):
 
         # Get the response for an individual GET request.
         inv_req = self.client.get("/views/")
-        inv_get = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_get = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for an individual POST request.
         inv_req = self.client.post("/views/", data, content_type="text/plain")
-        inv_post = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_post = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Get the response for an individual PUT request.
         inv_req = self.client.patch("/views/", data, content_type="text/plain")
-        inv_put = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req._headers)
+        inv_put = self.prepare_response(inv_req.status_code, inv_req.content.decode('utf-8'), inv_req.items())
 
         # Consolidate all the responses.
         indv_responses = [inv_get, inv_post, inv_put]

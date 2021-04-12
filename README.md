@@ -1,8 +1,8 @@
 Django Batch Requests
 =========================
 
-![](https://img.shields.io/badge/python-2.7%20|%203.4%20|%20nightly-blue.svg)
-![](https://img.shields.io/badge/django%20versions-1.11%20|%202.0%20|%202.2-blue.svg)
+![](https://img.shields.io/badge/python-2.7%20--%203.10-blue.svg)
+![](https://img.shields.io/badge/django%20versions-1.11%20|%202.0%20|%202.2%20|%203.0%20|%203.1-blue.svg)
 [![build-status-image]][travis]
 [![coverage]][coverage-repo]
 

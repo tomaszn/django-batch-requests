@@ -65,7 +65,7 @@ def pre_process_method_headers(method, headers):
         header = header.replace("-", "_")
         header = "http_{header}".format(
             header=header) if header.lower() not in _wsgi_headers else header
-        _transformed_headers.update({header.upper(): value})
+        _transformed_headers[header.upper()] = value
 
     return method, _transformed_headers
 
@@ -87,7 +87,7 @@ def get_wsgi_request_object(curr_request, method, url, headers, body):
 
     # Add default content type.
     if "CONTENT_TYPE" not in t_headers:
-        t_headers.update({"CONTENT_TYPE": _settings.DEFAULT_CONTENT_TYPE})
+        t_headers["CONTENT_TYPE"] = _settings.DEFAULT_CONTENT_TYPE
 
     # Override existing batch requests headers with the new headers passed for this request.
     x_headers.update(t_headers)

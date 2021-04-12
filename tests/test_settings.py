@@ -90,7 +90,7 @@ class TestSettings(TestCase):
         batch_requests = self._make_multiple_batch_request([get_req])
 
         # Make sure we have the header present in enclosing batch response and all individual responses.
-        self.assertIn(br_settings.DURATION_HEADER_NAME, batch_requests._headers,
+        self.assertIn(br_settings.DURATION_HEADER_NAME, batch_requests,
                       "Enclosing batch request does not contain duration header.")
 
         self.assertIn(br_settings.DURATION_HEADER_NAME, json.loads(batch_requests.content.decode('utf-8'))[0]['headers'],

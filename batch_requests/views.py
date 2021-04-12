@@ -36,7 +36,7 @@ def get_response(wsgi_request):
     except Exception as exc:
         resp = HttpResponseServerError(content=exc.args[0])
 
-    headers = dict(resp._headers.values())
+    headers = dict(resp.items())
     # Convert HTTP response into simple dict type.
     d_resp = {"status_code": resp.status_code, "reason_phrase": resp.reason_phrase,
               "headers": headers}
@@ -48,7 +48,7 @@ def get_response(wsgi_request):
 
     # Check if we need to send across the duration header.
     if _settings.ADD_DURATION_HEADER:
-        d_resp['headers'].update({_settings.DURATION_HEADER_NAME: (datetime.now() - service_start_time).seconds})
+        d_resp['headers'][_settings.DURATION_HEADER_NAME] = (datetime.now() - service_start_time).seconds
 
     return d_resp
 

@@ -34,7 +34,7 @@ class TestBase(TestCase):
         '''
             Converts the headers from the response in to a dict.
         '''
-        return dict(headers.values())
+        return dict(headers)
 
     def prepare_response(self, status_code, body, headers):
         '''

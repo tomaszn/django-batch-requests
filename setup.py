@@ -6,14 +6,15 @@ import sys
 
 import batch_requests
 
-from setuptools import setup
 from setuptools import setup, Command
+
 
 class PyTest(Command):
     '''
         A command handler for setup.py test.
     '''
     user_options = []
+
     def initialize_options(self):
         pass
 
@@ -22,9 +23,9 @@ class PyTest(Command):
 
     def run(self):
         import subprocess
-        import sys
         errno = subprocess.call('py.test --cov-report html --cov batch_requests tests/', shell=True)
         raise SystemExit(errno)
+
 
 name = 'django-batch-requests'
 version = batch_requests.__version__
